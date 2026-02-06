@@ -1,43 +1,36 @@
-# Astro Starter Kit: Minimal
+# Astro v6 + Cloudflare + middleware + `nodejs_compat` leads to wrong output on SSR pages. 
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+## Summary
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+* Astro v6-beta project 
+* ...with the Cloudflare adapter
+* ...with `"compatibility_flags": ["nodejs_compat"]` in `wrangler.jsonc`
+* ...with any middleware (even a minimal `return next()`) 
 
-## 🚀 Project Structure
+...leads to SSR pages showing as `[object Object]` in the browser *in preview mode and in deployment to CF only* (`dev` mode is unaffected.)
 
-Inside of your Astro project, you'll see the following folders and files:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Steps to reproduce
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1. Clone this repository.
+2. Install dependencies with `pnpm install`.
+5. Test the application: `pnpm run preview`.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Expected behaviour
 
-## 🧞 Commands
+The application should display the word __"Astro"__, as per the minimal template.
 
-All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+### Actual behaviour
 
-## 👀 Want to learn more?
+The page displays `[object Object]`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Other notes
+
+If you delete or rename `src/middleware.ts`, the page displays normally.
+
+If you edit `wrangler.jsonc` to remove the line `"nodejs_compat",`, the page displays normally.
+
+I've checked every other combination of v5/v6-beta and node/cloudflart adapter and it's only the exact combination of v6-beta/cloudflare that generates this behaviour.
