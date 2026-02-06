@@ -7,10 +7,11 @@
     "build": "astro build",
     "preview": "pnpm run build && astro preview",
     "astro": "astro",
-    "deploy": "pnpm run build && wrangler deploy"
+    "deploy": "pnpm run build && wrangler deploy",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.2",
+    "@astrojs/cloudflare": "^12.6.12",
     "astro": "^5.17.1"
   }
 }
