@@ -1,16 +1,17 @@
 {
-	"compatibility_date": "2026-02-06",
-	"compatibility_flags": [
-		"nodejs_compat",
-		"global_fetch_strictly_public"
-	],
-	"name": "astro-cloudflare-middleware-repro",
-	"main": "@astrojs/cloudflare/entrypoints/server",
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS",
-	},
-	"observability": {
-		"enabled": true,
-	},
+  "compatibility_date": "2026-02-06",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "disable_nodejs_process_v2",
+    "global_fetch_strictly_public",
+  ],
+  "name": "astro-cloudflare-middleware-repro",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "enabled": true,
+  },
 }
